@@ -66,8 +66,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cursor{position:fixed;left:0;top:0;z-index:95;pointer-events:none;display:none}
 .cursor:not(.live){opacity:0}
 .cursor .dot{position:absolute;width:0;height:0}
-.cursor .razor{position:absolute;width:42px;height:28px;left:-6px;top:1px;transform:rotate(45deg);transition:transform .14s cubic-bezier(.3,1.6,.5,1),opacity .2s;filter:drop-shadow(0 2px 3px rgba(0,0,0,.45))}
-.cursor.cut .razor{transform:rotate(18deg) translate(2px,3px)}
+.cursor .razor{position:absolute;width:34px;height:34px;left:-8px;top:-8px;transform-origin:8px 8px;transition:transform .14s cubic-bezier(.3,1.6,.5,1),opacity .2s}
+.cursor.cut .razor{transform:rotate(-27deg) translate(1px,2px)}
 .cutmark{position:fixed;z-index:94;width:2px;height:56px;margin:-28px 0 0 -1px;background:var(--lime);pointer-events:none;box-shadow:0 0 12px var(--lime);animation:cutmark .5s cubic-bezier(.2,.8,.2,1) forwards}
 @keyframes cutmark{0%{transform:scaleY(0);opacity:1}35%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1.15);opacity:0}}
 .cursor .ring{position:absolute;width:44px;height:44px;margin:-22px;border:1px solid rgba(244,242,235,.5);border-radius:50%;display:grid;place-items:center;transition:width .35s cubic-bezier(.3,1.4,.5,1),height .35s cubic-bezier(.3,1.4,.5,1),margin .35s cubic-bezier(.3,1.4,.5,1),background .3s,border-color .3s}
@@ -333,7 +333,7 @@ footer{display:flex;justify-content:space-between;align-items:center;gap:16px;pa
   <div class="bar" id="ld-bar"></div>
 </div>
 
-<div class="cursor" id="cursor" aria-hidden="true"><div class="ring"><em>Play</em></div><div class="dot"><svg class="razor" viewBox="1.5 4.5 21 14" aria-hidden="true"><defs><linearGradient id="rzSteel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3F5F7"/><stop offset=".35" stop-color="#AEB5BE"/><stop offset=".55" stop-color="#E6EAEE"/><stop offset="1" stop-color="#7C858F"/></linearGradient></defs><path d="M20 8C19.45 8 19 7.55 19 7C19 6.45 19.45 6 20 6V5H4V6C4.55 6 5 6.45 5 7C5 7.55 4.55 8 4 8H2V15H4C4.55 15 5 15.45 5 16C5 16.55 4.55 17 4 17V18H20V17C19.45 17 19 16.55 19 16C19 15.45 19.45 15 20 15H22V8H20M20 12H19V13H17V12H13.41C13.2 12.58 12.65 13 12 13S10.8 12.58 10.59 12H7V13H5V12H4V11H5V10H7V11H10.59C10.8 10.42 11.35 10 12 10S13.2 10.42 13.41 11H17V10H19V11H20V12Z" fill="url(#rzSteel)" stroke="#0E0F12" stroke-width=".55" stroke-linejoin="round"/><path d="M4.4 17.6H19.6" stroke="#C9F36A" stroke-width=".7"/></svg></div></div>
+<div class="cursor" id="cursor" aria-hidden="true"><div class="ring"><em>Play</em></div><div class="dot"><svg class="razor" viewBox="-2 -2 28 28" aria-hidden="true" shape-rendering="geometricPrecision"><defs><linearGradient id="rzSteel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3F5F7"/><stop offset=".35" stop-color="#AEB5BE"/><stop offset=".55" stop-color="#E6EAEE"/><stop offset="1" stop-color="#7C858F"/></linearGradient><filter id="rzShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy=".6" stdDeviation=".6" flood-color="#000" flood-opacity=".55"/></filter></defs><g transform="rotate(45 12 11.5)" filter="url(#rzShadow)"><path d="M20 8C19.45 8 19 7.55 19 7C19 6.45 19.45 6 20 6V5H4V6C4.55 6 5 6.45 5 7C5 7.55 4.55 8 4 8H2V15H4C4.55 15 5 15.45 5 16C5 16.55 4.55 17 4 17V18H20V17C19.45 17 19 16.55 19 16C19 15.45 19.45 15 20 15H22V8H20M20 12H19V13H17V12H13.41C13.2 12.58 12.65 13 12 13S10.8 12.58 10.59 12H7V13H5V12H4V11H5V10H7V11H10.59C10.8 10.42 11.35 10 12 10S13.2 10.42 13.41 11H17V10H19V11H20V12Z" fill="url(#rzSteel)" stroke="#0E0F12" stroke-width=".6" stroke-linejoin="round"/><path d="M4.4 17.6H19.6" stroke="#C9F36A" stroke-width=".8"/></g></svg></div></div>
 
 <header class="nav" id="nav">
   <a class="brand" href="#top" aria-label="Sameh Gaber, back to top">
