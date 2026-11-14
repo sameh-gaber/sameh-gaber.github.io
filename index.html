@@ -75,7 +75,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cursor.play .ring{width:96px;height:96px;margin:-48px;background:var(--lime);border-color:var(--lime)}
 .cursor.play .ring em{opacity:1}
 .cursor.play .razor{opacity:0}
-@media (hover:hover) and (pointer:fine){.cursor{display:block}body,a,button{cursor:none}}
+@media (hover:hover) and (pointer:fine){.cursor{display:block}html.razor-on,html.razor-on body,html.razor-on a,html.razor-on button{cursor:var(--cur)}html.razor-on.cutting,html.razor-on.cutting *{cursor:var(--cur-cut)}html.razor-on [data-cursor=play],html.razor-on [data-cursor=play] *{cursor:none}html.razor-on .cursor .razor{display:none}}
 
 /* ---------- nav ---------- */
 .nav{position:fixed;inset:0 0 auto;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:20px var(--pad);mix-blend-mode:normal;transition:transform .5s cubic-bezier(.7,0,.2,1),background .4s}
@@ -645,6 +645,19 @@ if(matchMedia("(hover:hover) and (pointer:fine)").matches){
   addEventListener("pointerdown",e=>{if(e.button!==0)return;cursor.classList.add("cut");
     if(!reduce){const m=document.createElement("span");m.className="cutmark";m.style.left=e.clientX+"px";m.style.top=e.clientY+"px";document.body.append(m);setTimeout(()=>m.remove(),520)}});
   addEventListener("pointerup",()=>cursor.classList.remove("cut"));
+  /* native razor cursor: drawn from the SVG at 1x and 2x so it stays sharp on every screen */
+  (async()=>{try{
+    const src=cursor.querySelector(".razor"), NS="http://www.w3.org/2000/svg", root=document.documentElement;
+    const mk=async rot=>{const c=src.cloneNode(true);c.removeAttribute("class");c.setAttribute("xmlns",NS);
+      if(rot){const g=c.querySelector("g"),w=document.createElementNS(NS,"g");w.setAttribute("transform",`rotate(${rot} 4.93 4.43)`);g.replaceWith(w);w.append(g)}
+      const out=[];for(const k of [1,2]){const n=32*k;c.setAttribute("width",n);c.setAttribute("height",n);
+        const img=new Image();img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(c.outerHTML);await img.decode();
+        const cv=document.createElement("canvas");cv.width=cv.height=n;cv.getContext("2d").drawImage(img,0,0,n,n);out.push(cv.toDataURL("image/png"))}
+      return `-webkit-image-set(url(${out[0]}) 1x, url(${out[1]}) 2x) 8 7, url(${out[0]}) 8 7, auto`};
+    root.style.setProperty("--cur",await mk(0));root.style.setProperty("--cur-cut",await mk(-27));root.classList.add("razor-on");
+    addEventListener("pointerdown",e=>{if(e.button===0)root.classList.add("cutting")});
+    addEventListener("pointerup",()=>root.classList.remove("cutting"));
+  }catch(err){}})();
 }
 
 /* ---------- magnetic buttons ---------- */
